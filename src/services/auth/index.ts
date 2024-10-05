@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
-import EmailProvider from "next-auth/providers/email";
-
+import DiscordProvider from "next-auth/providers/discord";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "../database";
 
@@ -17,16 +16,9 @@ export const {
   },
   adapter: PrismaAdapter(prisma),
   providers: [
-    EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
-      },
-      from: process.env.EMAIL_FROM,
+    DiscordProvider({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
     }),
   ],
   callbacks: {
@@ -38,6 +30,8 @@ export const {
     },
   },
   events: {
-    createUser: async (message) => {},
+    createUser: async (message) => {
+      // Custom logic when a new user is created
+    },
   },
 });
