@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
-  EnvelopeOpenIcon,
   HamburgerMenuIcon,
   Cross1Icon,
   DiscordLogoIcon,
 } from "@radix-ui/react-icons";
 import { UserNav } from "./user-nav";
+import Link from "next/link";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ export function Header() {
 
   return (
     <header className="flex justify-between items-center py-4 px-6 bg-gray-800">
-      <div className="flex items-center">
+      <Link href="/" className="flex items-center">
         <Image
           src="/logo.svg"
           alt="Rotworm Logo"
@@ -31,9 +32,11 @@ export function Header() {
           className="h-8 w-8 mr-2"
         />
         <h1 className="text-xl font-bold">Rotworm</h1>
-      </div>
+      </Link>
 
       <div className="hidden md:flex space-x-4">
+        <Link href="/profile">Profile</Link>
+
         {session ? (
           <UserNav session={session} />
         ) : (
@@ -76,27 +79,25 @@ export function Header() {
               </Button>
             </div>
           ) : (
-            <>
-              <Button variant="ghost" onClick={toggleMenu}>
-                Oi
-              </Button>
-              <Button variant="ghost" onClick={toggleMenu}>
-                não sei
-              </Button>
-              <Button variant="ghost" onClick={toggleMenu}>
-                até mais
-              </Button>
-              <Button
-                className="bg-purple-600 text-white"
-                onClick={() => {
-                  signIn("discord");
-                  toggleMenu(); // Fecha o menu após login
-                }}
-              >
-                <DiscordLogoIcon className="mr-2 h-4 w-4" /> Entrar com Discord
-              </Button>
-            </>
+            <Button
+              className="bg-purple-600 text-white"
+              onClick={() => {
+                signIn("discord");
+                toggleMenu(); // Fecha o menu após login
+              }}
+            >
+              <DiscordLogoIcon className="mr-2 h-4 w-4" /> Entrar com Discord
+            </Button>
           )}
+          <Button variant="ghost" onClick={toggleMenu}>
+            Oi
+          </Button>
+          <Button variant="ghost" onClick={toggleMenu}>
+            não sei
+          </Button>
+          <Button variant="ghost" onClick={toggleMenu}>
+            até mais
+          </Button>
         </div>
       )}
     </header>
