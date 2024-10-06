@@ -15,7 +15,7 @@ export default function BrowseCategories() {
               <Image
                 src={category.imageUrl}
                 alt={category.name}
-                layout="fill"
+                fill
                 className="rounded-lg object-contain "
                 style={{ imageRendering: "pixelated" }}
               />

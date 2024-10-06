@@ -35,7 +35,7 @@ export function Header() {
       </Link>
 
       <div className="hidden md:flex space-x-4">
-        <Link href="/profile">Profile</Link>
+        <Button variant="ghost">Profile</Button>
 
         {session ? (
           <UserNav session={session} />

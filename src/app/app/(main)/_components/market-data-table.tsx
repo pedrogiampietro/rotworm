@@ -42,7 +42,7 @@ type TodoDataTable = {
   data: any[];
 };
 
-export function TodoDataTable({ data }: TodoDataTable) {
+export function MarketDataTable({ data }: TodoDataTable) {
   const router = useRouter();
 
   const [sorting, setSorting] = React.useState<SortingState>([]);

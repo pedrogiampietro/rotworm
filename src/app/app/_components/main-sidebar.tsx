@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   DashboardSidebar,
@@ -10,23 +10,23 @@ import {
   DashboardSidebarNavHeader,
   DashboardSidebarNavHeaderTitle,
   DashboardSidebarFooter,
-} from '@/components/dashboard/sidebar'
-import { usePathname } from 'next/navigation'
-import { HomeIcon, MixerVerticalIcon } from '@radix-ui/react-icons'
-import { UserDropdown } from './user-dropdown'
-import { Logo } from '@/components/logo'
-import { Session } from 'next-auth'
+} from "@/components/dashboard/sidebar";
+import { usePathname } from "next/navigation";
+import { HomeIcon, MixerVerticalIcon } from "@radix-ui/react-icons";
+import { UserDropdown } from "./user-dropdown";
+import { Logo } from "@/components/logo";
+import { Session } from "next-auth";
 
 type MainSidebarProps = {
-  user: Session['user']
-}
+  user: Session["user"];
+};
 
 export function MainSidebar({ user }: MainSidebarProps) {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const isActive = (path: string) => {
-    return pathname === path
-  }
+    return pathname === path;
+  };
 
   return (
     <DashboardSidebar>
@@ -36,13 +36,13 @@ export function MainSidebar({ user }: MainSidebarProps) {
       <DashboardSidebarMain className="flex flex-col flex-grow">
         <DashboardSidebarNav>
           <DashboardSidebarNavMain>
-            <DashboardSidebarNavLink href="/app" active={isActive('/app')}>
+            <DashboardSidebarNavLink href="/app" active={isActive("/app")}>
               <HomeIcon className="w-3 h-3 mr-3" />
-              Tarefas
+              Market
             </DashboardSidebarNavLink>
             <DashboardSidebarNavLink
               href="/app/settings"
-              active={isActive('/app/settings')}
+              active={isActive("/app/settings")}
             >
               <MixerVerticalIcon className="w-3 h-3 mr-3" />
               Configurações
@@ -68,5 +68,5 @@ export function MainSidebar({ user }: MainSidebarProps) {
         <UserDropdown user={user} />
       </DashboardSidebarFooter>
     </DashboardSidebar>
-  )
+  );
 }
