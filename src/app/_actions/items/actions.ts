@@ -1,8 +1,8 @@
-// actions.ts
 "use server";
 
 import { prisma } from "@/services/database";
 
+// src/app/_actions/items/actions.ts
 export async function createItem(data: {
   title: string;
   sellerId: string;
@@ -14,11 +14,11 @@ export async function createItem(data: {
     const newItem = await prisma.item.create({
       data: {
         name: data.title,
-        description: data.description || "Sem descrição", // Use form data or default
-        imageUrl: data.imageUrl || "", // Use form data or default
-        price: data.price, // Use the actual price from the form
+        description: data.description || "Sem descrição",
+        imageUrl: data.imageUrl || "",
+        price: data.price,
         seller: {
-          connect: { id: data.sellerId },
+          connect: { id: data.sellerId }, // Ensure sellerId is defined
         },
       },
     });

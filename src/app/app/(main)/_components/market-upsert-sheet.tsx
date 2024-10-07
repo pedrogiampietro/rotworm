@@ -22,7 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-
+import { useSession } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useRouter } from "next/navigation";
@@ -32,10 +32,9 @@ import { itemSchema } from "../types";
 
 type ItemUpsertSheetProps = {
   children?: React.ReactNode;
-  sellerId: string;
 };
 
-export function ItemUpsertSheet({ children, sellerId }: ItemUpsertSheetProps) {
+export function ItemUpsertSheet({ children }: ItemUpsertSheetProps) {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -43,15 +42,24 @@ export function ItemUpsertSheet({ children, sellerId }: ItemUpsertSheetProps) {
     resolver: zodResolver(itemSchema),
   });
 
-  // market-upsert-sheet.tsx
+  const { data: session } = useSession();
+
+  if (!session) {
+    return "você precisa fazer login primeiro.";
+  }
+
   const onSubmit = form.handleSubmit(async (data) => {
     try {
+      if (!session.user.id) {
+        throw new Error("User ID is not available.");
+      }
+
       await createItem({
         title: data.title,
         description: data.description || "Sem descrição",
         imageUrl: data.imageUrl || "",
         price: Number(data.price),
-        sellerId: sellerId,
+        sellerId: session.user.id,
       });
       router.refresh();
 

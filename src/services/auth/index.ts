@@ -28,10 +28,14 @@ export const {
       }
       return true;
     },
+    async session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
   },
   events: {
-    createUser: async (message) => {
-      // Custom logic when a new user is created
-    },
+    createUser: async (message) => {},
   },
 });
