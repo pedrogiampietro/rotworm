@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { toast } from '@/components/ui/use-toast'
-import { z } from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { toast } from "@/components/ui/use-toast";
+import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -11,38 +11,38 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { SheetFooter } from '@/components/ui/sheet'
-import { Button } from '@/components/ui/button'
+} from "@/components/ui/form";
+import { SheetFooter } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { themeFormSchema } from './schemas'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { useTheme } from 'next-themes'
+} from "@/components/ui/card";
+import { themeFormSchema } from "./schemas";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useTheme } from "next-themes";
 
 export function ThemeForm() {
-  const theme = useTheme()
+  const theme = useTheme();
 
   const form = useForm<z.infer<typeof themeFormSchema>>({
     resolver: zodResolver(themeFormSchema),
     defaultValues: {
-      theme: theme.theme ?? 'light',
+      theme: theme.theme ?? "light",
     },
-  })
+  });
 
   const onSubmit = form.handleSubmit(async (data) => {
-    theme.setTheme(data.theme as 'light' | 'dark')
+    theme.setTheme(data.theme as "light" | "dark");
 
     toast({
-      title: 'Success',
-      description: 'Your profile has been updated successfully.',
-    })
-  })
+      title: "Success",
+      description: "Your profile has been updated successfully.",
+    });
+  });
 
   return (
     <Form {...form}>
@@ -125,11 +125,11 @@ export function ThemeForm() {
 
         <SheetFooter className="mt-auto">
           <Button disabled={form.formState.isLoading} type="submit">
-            {form.formState.isSubmitting && 'Salvando...'}
-            {!form.formState.isSubmitting && 'Salvar alterações'}
+            {form.formState.isSubmitting && "Salvando..."}
+            {!form.formState.isSubmitting && "Salvar alterações"}
           </Button>
         </SheetFooter>
       </form>
     </Form>
-  )
+  );
 }

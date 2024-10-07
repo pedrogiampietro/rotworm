@@ -5,5 +5,5 @@ export default function Page() {
     <main className="flex items-center justify-center h-screen">
       <AuthForm />
     </main>
-  )
+  );
 }
