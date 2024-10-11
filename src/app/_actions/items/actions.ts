@@ -2,7 +2,6 @@
 
 import { prisma } from "@/services/database";
 
-// src/app/_actions/items/actions.ts
 export async function createItem(data: {
   title: string;
   sellerId: string;
@@ -18,7 +17,7 @@ export async function createItem(data: {
         imageUrl: data.imageUrl || "",
         price: data.price,
         seller: {
-          connect: { id: data.sellerId }, // Ensure sellerId is defined
+          connect: { id: data.sellerId },
         },
       },
     });
